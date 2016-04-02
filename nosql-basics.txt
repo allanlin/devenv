@@ -1,0 +1,24 @@
+The basic of no-sql vs sql is simple.
+-------------------------------------
+
+
+Note:
+--------
+Here how I understand it. I might be wrong so please correct me if I’m being retarded. 
+
+Summary:
+---------
+SQL (structured query language) was often used in financial institutions. Things were very structured allowed for interesting queries and most importantly followed the ACID tenants (Atomicity, Consistency, Isolation, and Durability). This is especially important when you are dealing with money. You need to be exact, which means that all request against the database needs to be serialized. Which means that if there are ton of request happening against the same DB at the same time, eventually you would need to wait your turn before you can make your call. So how do you fix this? Getting a super powerful DB, but that’s expensive. What happens when this single DB runs into problems??
+
+This reads to the CAP theorem, states that it’s impossible to have all three properties:
+
+(+) Consistency (all nodes see the same data at the same time)
+(+) Availability (a guarantee that every request receives a response about whether it succeeded or failed)
+(+) Partition tolerance (the system continues to operate despite arbitrary partitioning due to network failures)
+
+In the above case, the DB choose Consistent and Availability. 
+Now we talk about No-SQL, the data is not structures but most importantly it choose a different two properties of the CAP theorem. It choose Availability and Partition Tolerance. Which means that you can have multiple cheaper machines storing and information. The problem here is that it’s not consistent. (well eventually consistent, but there a series of events that you might get out dated information.) 
+Okay … so what? This means that when you do queries on the dataset you might actually get wrong information. So generally when you are running queries over non-SQL you expect the data to be slightly off but hopefully you are operating at a big enough scale that the delta of the data that you are off won’t mess up any information you can infer from the data.
+
+
+
