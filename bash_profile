@@ -1,3 +1,9 @@
+# Attemping to fix the __git_ps1 missing error:
+# Step 1/2
+# 1.) curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
+# Step 2/2
+source ~/.bash_git
+
 export PATH=$(brew --prefix)/sbin:$(brew --prefix)/bin:$PATH:$HOME/bin
 
 # added by newengsetup
@@ -13,6 +19,8 @@ export VAGRANT_DEFAULT_PROVIDER=aws
 [ -s "$HOME/.nvm/nvm.sh" ] && . $HOME/.nvm/nvm.sh
 type "brew" &>/dev/null && [ -s "$(brew --prefix)/etc/bash_completion" ] && . $(brew --prefix)/etc/bash_completion
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+
 
 _sync_dir () {
     cmd=$1
@@ -34,9 +42,11 @@ opensync () {
     _sync_dir open @
 }
 
+
+# Uber Specific
 goclone () {
-	mkdir -p $GOPATH/src/code.uber.internal/$1
-	git clone gitolite@code.uber.internal:$1 $GOPATH/src/code.uber.internal/$1 --recursive
+  mkdir -p $GOPATH/src/code.uber.internal/$1
+  git clone gitolite@code.uber.internal:$1 $GOPATH/src/code.uber.internal/$1 --recursive
 }
 
 parse_git_branch() {

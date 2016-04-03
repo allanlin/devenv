@@ -1,0 +1,49 @@
+INTRODUCTION:
+---------------------------
+
+Developing on a mac is something new. 
+
+Here are some newbie tips for people who come from  windows. 
+
+
+
+
+
+APPS TO INSTALL ON A MAC
+---------------------------
+
+-Spectacle
+
+HOOKING SUBL correctly:
+----------------------------
+ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+
+
+
+FIXING THE __GIT_PS1 ERROR
+---------------------------
+http://stackoverflow.com/questions/15384025/bash-git-ps1-command-not-found
+
+Run the following:
+
+$ curl -L https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > ~/.bash_git
+And add this to the top of your ~/.bashrc:
+
+source ~/.bash_git
+Re-login to your shell and you should be set.
+
+
+FIXING TERM
+-------------------------
+
+Term going to front of the line or going back:
+
+Add in iTerm2 the following Profile Shortcut Keys
+
+FOR  ACTION         SEND
+⌘←  "HEX CODE"      0x01 
+⌘→  "HEX CODE"      0x05
+⌥←  "SEND ESC SEQ"  b
+⌥→  "SEND ESC SEQ"  f
+
+source: http://stackoverflow.com/questions/6205157/iterm2-how-to-get-jump-to-beginning-end-of-line-in-bash-shell
