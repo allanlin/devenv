@@ -1,0 +1,7 @@
+#
+# Aliases
+#
+alias grep='grep --color=auto'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."

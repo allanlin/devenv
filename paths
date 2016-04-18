@@ -1,0 +1,14 @@
+#
+# PATHS
+#
+
+addtopath() {
+  if [ -d $1 ] && [[ ":$PATH:" != *":$1:"* ]] ; then
+    export PATH=$PATH:$1
+  fi
+}
+
+#
+# Add Python
+#
+export PATH=$(python -c 'import sysconfig; print sysconfig.get_path("scripts")'):$PATH

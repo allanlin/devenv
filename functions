@@ -1,0 +1,86 @@
+#
+# Uber Sync
+#
+
+_sync_dir () {
+    cmd=$1
+    shift
+    new_directory=$(boxer sync_dir $@)
+    if [ "$?" -eq "0" ]; then
+        $cmd $new_directory
+    else
+        echo "$new_directory"
+    fi
+}
+cdsync () {
+    _sync_dir cd $@
+}
+editsync () {
+    _sync_dir $EDITOR $@
+}
+opensync () {
+    _sync_dir open @
+}
+
+goclone () {
+  mkdir -p $GOPATH/src/code.uber.internal/$1
+  git clone gitolite@code.uber.internal:$1 $GOPATH/src/code.uber.internal/$1 --recursive
+}
+
+
+#
+# Functions
+#
+
+ssh-reagent () {
+  ssh-add -l &> /dev/null && return 0
+  for agent in /tmp/ssh-*/agent.*; do
+    export SSH_AUTH_SOCK=$agent
+    if ssh-add -l 2>&1 > /dev/null; then
+      echo Found working SSH Agent:
+      ssh-add -l
+      return
+    fi
+  done
+  echo "Cannot find ssh agent - maybe you should reconnect and forward it?"
+}
+
+psgrep() {
+    if [ ! -z $1 ] ; then
+        ps aux | grep $1 | grep -v grep
+    else
+        echo "!! Need name to grep for"
+    fi
+}
+
+vimwrap() {
+  if [ -z "$1" ] && [ `pwd` != "$HOME" ] ; then
+    vim -c 'CommandT'
+  else
+    vim $@
+  fi
+}
+alias vim=vimwrap
+
+#
+# Git Environment
+#
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* (.*)/(1)/"
+}
+
+#
+# Vigrant Stuff
+#
+
+export VAGRANT_NAME="furiosa-sidekick-2"
+
+devbox () {
+  boxer v $VAGRANT_NAME
+}
+
+new_devbox () {
+  boxer claim_vagrant --services golden --aws-type m4.2xlarge
+  echo "Don't forget to update VAGRANT_NAME"
+}
